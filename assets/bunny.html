@@ -7,69 +7,80 @@
         var fullScreenRenderer = vtk.Rendering.Misc.vtkFullScreenRenderWindow.newInstance();
         var actor = vtk.Rendering.Core.vtkActor.newInstance();
         var glyphMapper = vtk.Rendering.Core.vtkGlyph3DMapper.newInstance();
-        var stlReader = vtk.IO.Geometry.vtkSTLReader.newInstance();
+        var reader = vtk.IO.XML.vtkXMLPolyDataReader.newInstance();
         var sphereSource = vtk.Filters.Sources.vtkSphereSource.newInstance({
-            radius: 0.05,
+            radius: 1.0,
             phiResolution: 10,
             thetaResolution: 10
         });
 
-        stlReader.setUrl('../assets/apollo_gmsh.stl').then(function () {
-            var polydata = stlReader.getOutputData();
+        reader.setUrl('../assets/bunny.vtp').then(function () {
+            var polydata = reader.getOutputData();
             var points = polydata.getPoints();
             var pointData = points.getData();
             var numPoints = points.getNumberOfPoints();
 
-            // Create Y coordinate array for sizing and Z coordinate array for coloring
-            var yCoords = new Float32Array(numPoints);
-            var zCoords = new Float32Array(numPoints);
-            for (var i = 0; i < numPoints; i++) {
-                yCoords[i] = pointData[i * 3 + 1]; // Y is the second coordinate
-                zCoords[i] = pointData[i * 3 + 2]; // Z is the third coordinate
+            var rho = new Float32Array(numPoints);
+            var ds = new Float32Array(numPoints);
+            var m = new Float32Array(numPoints);
+
+            var existingRho = polydata.getPointData().getArrayByName('rho');
+            if (existingRho) {
+                console.log('Found existing rho data');
+                rho = existingRho.getData();
             }
 
-            // Add Y coordinates for scaling
+            var existingm = polydata.getPointData().getArrayByName('m');
+            if (existingm) {
+                console.log('Found existing m data');
+                m = existingm.getData();
+            }
+
+            for (var i = 0; i < numPoints; i++) {
+                ds[i] = (m[i] / rho[i]) ** (1 / 3);
+            }
+
             polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
-                name: 'Y Coordinate',
-                values: yCoords,
+                name: 'colscalar',
+                values: rho,
                 numberOfComponents: 1
             }));
 
-            // Add Z coordinate vectors (z, 0, 0) as a new array
-            var zVectors = new Float32Array(numPoints * 3);
+            var scalevec = new Float32Array(numPoints * 3);
             for (var i = 0; i < numPoints; i++) {
-                zVectors[i * 3] = zCoords[i];     // X component is Z coordinate
-                zVectors[i * 3 + 1] = 0.0;       // Y component is 0
-                zVectors[i * 3 + 2] = 0.0;       // Z component is 0
+                scalevec[i * 3] = ds[i];     // X component is Z coordinate
+                scalevec[i * 3 + 1] = 0.0;       // Y component is 0
+                scalevec[i * 3 + 2] = 0.0;       // Z component is 0
             }
+
             polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
-                name: 'Z Vector',
-                values: zVectors,
+                name: 'scalevec',
+                values: scalevec,
                 numberOfComponents: 3
             }));
 
-            // Set Z Vector as active vectors for scaling by magnitude
-            polydata.getPointData().setActiveVectors('Z Vector');
+            polydata.getPointData().setActiveVectors('scalevec');
 
-            // Add Z coordinates for coloring
             polydata.getPointData().setScalars(vtk.Common.Core.vtkDataArray.newInstance({
-                name: 'Z Coordinate',
-                values: zCoords,
+                name: 'rho',
+                values: rho,
                 numberOfComponents: 1
             }));
-            // Configure the glyph mapper
+
+
             // Configure the glyph mapper
             glyphMapper.setInputData(polydata);
             glyphMapper.setSourceConnection(sphereSource.getOutputPort());
             glyphMapper.setScalarRange(polydata.getPointData().getScalars().getRange());
             glyphMapper.setScalarModeToUsePointFieldData();
-            glyphMapper.setColorByArrayName('Z Coordinate'); // Use Z for coloring
+            glyphMapper.setColorByArrayName('colscalar');
+
 
             // Use Z Vector magnitude for scaling
             glyphMapper.setScaling(true);
             glyphMapper.setScaleMode(1);
-            glyphMapper.setScaleArray('Z Vector');
-            // glyphMapper.setScaleFactor(2.0);
+            glyphMapper.setScaleArray('scalevec');
+            glyphMapper.setScaleFactor(1.0);
             actor.setMapper(glyphMapper);
 
             var renderer = fullScreenRenderer.getRenderer();
@@ -108,16 +119,22 @@
             orientationWidget.setViewportCorner(
                 vtk.Interaction.Widgets.vtkOrientationMarkerWidget.Corners.BOTTOM_LEFT
             );
-            orientationWidget.setViewportSize(0.15);
+            orientationWidget.setViewportSize(0.10);
             orientationWidget.setMinPixelSize(100);
             orientationWidget.setMaxPixelSize(300);
+            // Set view to -Y direction
+            var camera = renderer.getActiveCamera();
+            camera.setPosition(0, -1, 0);  // Position on -Y axis
+            camera.setFocalPoint(0, 0, 0); // Look at origin
+            camera.setViewUp(0, 0, 1);     // Set Z as up direction
+
 
             // Create a color legend / scalar bar
             var scalarBarActor = vtk.Rendering.Core.vtkScalarBarActor.newInstance();
 
             // Connect the scalar bar to the same lookup table used by the mapper
             scalarBarActor.setScalarsToColors(glyphMapper.getLookupTable());
-            scalarBarActor.setAxisLabel('Z Coordinate');
+            scalarBarActor.setAxisLabel('ρ');
 
 
             // Add the scalar bar to the renderer
