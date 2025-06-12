@@ -85,7 +85,7 @@
 
             var renderer = fullScreenRenderer.getRenderer();
             renderer.addActor(actor);
-            renderer.setBackground([0.0, 0.0, 0.0]);
+            renderer.setBackground([1.0, 1.0, 1.0]); // Set background color to white
 
             // Create annotated cube actor with XYZ labels
             var annotatedCube = vtk.Rendering.Core.vtkAnnotatedCubeActor.newInstance();
@@ -135,6 +135,19 @@
             // Connect the scalar bar to the same lookup table used by the mapper
             scalarBarActor.setScalarsToColors(glyphMapper.getLookupTable());
             scalarBarActor.setAxisLabel('ρ');
+            scalarBarActor.setAxisTextStyle({
+                fontFamily: 'Computer Modern Unicode',
+                fontColor: 'black',
+                fontSize: 16,
+                fontStyle: 'italic',
+            });
+            scalarBarActor.setTickTextStyle({
+                fontFamily: 'Computer Modern Unicode',
+                fontColor: 'black',
+                fontSize: 16,
+                fontSize: 12,
+            });
+            
 
 
             // Add the scalar bar to the renderer
