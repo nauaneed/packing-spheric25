@@ -1,101 +1,123 @@
 <!DOCTYPE html>
 <html>
+
 <body>
-<script type="text/javascript" src="https://unpkg.com/vtk.js"></script>
-<script type="text/javascript">
-    var fullScreenRenderer = vtk.Rendering.Misc.vtkFullScreenRenderWindow.newInstance();
-    var actor              = vtk.Rendering.Core.vtkActor.newInstance();
-    var glyphMapper        = vtk.Rendering.Core.vtkGlyph3DMapper.newInstance();
-    var stlReader          = vtk.IO.Geometry.vtkSTLReader.newInstance();
-    var sphereSource       = vtk.Filters.Sources.vtkSphereSource.newInstance({
-        radius: 0.05,
-        phiResolution: 10,
-        thetaResolution: 10
-    });
-
-    stlReader.setUrl('../assets/apollo_gmsh.stl').then(function() {
-        var polydata = stlReader.getOutputData();
-        var points = polydata.getPoints();
-        var pointData = points.getData();
-        var numPoints = points.getNumberOfPoints();
-        
-        // Create Y coordinate array for sizing and Z coordinate array for coloring
-        var yCoords = new Float32Array(numPoints);
-        var zCoords = new Float32Array(numPoints);
-        for (var i = 0; i < numPoints; i++) {
-            yCoords[i] = pointData[i * 3 + 1]; // Y is the second coordinate
-            zCoords[i] = pointData[i * 3 + 2]; // Z is the third coordinate
-        }
-        
-        // Add Y coordinates for scaling
-        polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
-            name: 'Y Coordinate',
-            values: yCoords,
-            numberOfComponents: 1
-        }));
-        
-        // Add Z coordinate vectors (z, 0, 0) as a new array
-        var zVectors = new Float32Array(numPoints * 3);
-        for (var i = 0; i < numPoints; i++) {
-            zVectors[i * 3] = zCoords[i];     // X component is Z coordinate
-            zVectors[i * 3 + 1] = 0.0;       // Y component is 0
-            zVectors[i * 3 + 2] = 0.0;       // Z component is 0
-        }
-        polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
-            name: 'Z Vector',
-            values: zVectors,
-            numberOfComponents: 3
-        }));
-        
-        // Set Z Vector as active vectors for scaling by magnitude
-        polydata.getPointData().setActiveVectors('Z Vector');
-
-        // Add Z coordinates for coloring
-        polydata.getPointData().setScalars(vtk.Common.Core.vtkDataArray.newInstance({
-            name: 'Z Coordinate',
-            values: zCoords,
-            numberOfComponents: 1
-        }));
-        // Configure the glyph mapper
-        // Configure the glyph mapper
-        glyphMapper.setInputData(polydata);
-        glyphMapper.setSourceConnection(sphereSource.getOutputPort());
-        glyphMapper.setScalarRange(polydata.getPointData().getScalars().getRange());
-        glyphMapper.setScalarModeToUsePointFieldData();
-        glyphMapper.setColorByArrayName('Z Coordinate'); // Use Z for coloring
-        
-        // Use Z Vector magnitude for scaling
-        glyphMapper.setScaling(true);
-        glyphMapper.setScaleMode(1);
-        glyphMapper.setScaleArray('Z Vector');
-        // glyphMapper.setScaleFactor(2.0);
-        actor.setMapper(glyphMapper);
-
-        var renderer = fullScreenRenderer.getRenderer();
-        renderer.addActor(actor);
-        renderer.setBackground([0.0, 0.0, 0.0]);
-        
-        // Add axes to the scene
-        var axes = vtk.Rendering.Core.vtkAxesActor.newInstance();
-        
-        // Create orientation marker widget
-        var orientationWidget = vtk.Interaction.Widgets.vtkOrientationMarkerWidget.newInstance({
-            actor: axes,
-            interactor: fullScreenRenderer.getRenderWindow().getInteractor()
+    <script type="text/javascript" src="https://unpkg.com/vtk.js"></script>
+    <script type="text/javascript">
+        var fullScreenRenderer = vtk.Rendering.Misc.vtkFullScreenRenderWindow.newInstance();
+        var actor = vtk.Rendering.Core.vtkActor.newInstance();
+        var glyphMapper = vtk.Rendering.Core.vtkGlyph3DMapper.newInstance();
+        var stlReader = vtk.IO.Geometry.vtkSTLReader.newInstance();
+        var sphereSource = vtk.Filters.Sources.vtkSphereSource.newInstance({
+            radius: 0.05,
+            phiResolution: 10,
+            thetaResolution: 10
         });
-        orientationWidget.setEnabled(true);
-        orientationWidget.setViewportCorner(
-            vtk.Interaction.Widgets.vtkOrientationMarkerWidget.Corners.BOTTOM_RIGHT
-        );
-        orientationWidget.setViewportSize(0.15);
-        orientationWidget.setMinPixelSize(100);
-        orientationWidget.setMaxPixelSize(300);
-        
-        renderer.resetCamera();
-        
-        var renderWindow = fullScreenRenderer.getRenderWindow();
-        renderWindow.render();
-    });
-</script>
+
+        stlReader.setUrl('../assets/apollo_gmsh.stl').then(function () {
+            var polydata = stlReader.getOutputData();
+            var points = polydata.getPoints();
+            var pointData = points.getData();
+            var numPoints = points.getNumberOfPoints();
+
+            // Create Y coordinate array for sizing and Z coordinate array for coloring
+            var yCoords = new Float32Array(numPoints);
+            var zCoords = new Float32Array(numPoints);
+            for (var i = 0; i < numPoints; i++) {
+                yCoords[i] = pointData[i * 3 + 1]; // Y is the second coordinate
+                zCoords[i] = pointData[i * 3 + 2]; // Z is the third coordinate
+            }
+
+            // Add Y coordinates for scaling
+            polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
+                name: 'Y Coordinate',
+                values: yCoords,
+                numberOfComponents: 1
+            }));
+
+            // Add Z coordinate vectors (z, 0, 0) as a new array
+            var zVectors = new Float32Array(numPoints * 3);
+            for (var i = 0; i < numPoints; i++) {
+                zVectors[i * 3] = zCoords[i];     // X component is Z coordinate
+                zVectors[i * 3 + 1] = 0.0;       // Y component is 0
+                zVectors[i * 3 + 2] = 0.0;       // Z component is 0
+            }
+            polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
+                name: 'Z Vector',
+                values: zVectors,
+                numberOfComponents: 3
+            }));
+
+            // Set Z Vector as active vectors for scaling by magnitude
+            polydata.getPointData().setActiveVectors('Z Vector');
+
+            // Add Z coordinates for coloring
+            polydata.getPointData().setScalars(vtk.Common.Core.vtkDataArray.newInstance({
+                name: 'Z Coordinate',
+                values: zCoords,
+                numberOfComponents: 1
+            }));
+            // Configure the glyph mapper
+            // Configure the glyph mapper
+            glyphMapper.setInputData(polydata);
+            glyphMapper.setSourceConnection(sphereSource.getOutputPort());
+            glyphMapper.setScalarRange(polydata.getPointData().getScalars().getRange());
+            glyphMapper.setScalarModeToUsePointFieldData();
+            glyphMapper.setColorByArrayName('Z Coordinate'); // Use Z for coloring
+
+            // Use Z Vector magnitude for scaling
+            glyphMapper.setScaling(true);
+            glyphMapper.setScaleMode(1);
+            glyphMapper.setScaleArray('Z Vector');
+            // glyphMapper.setScaleFactor(2.0);
+            actor.setMapper(glyphMapper);
+
+            var renderer = fullScreenRenderer.getRenderer();
+            renderer.addActor(actor);
+            renderer.setBackground([0.0, 0.0, 0.0]);
+
+            // Create annotated cube actor with XYZ labels
+            var annotatedCube = vtk.Rendering.Core.vtkAnnotatedCubeActor.newInstance();
+
+            // Set up the cube's face texts
+            annotatedCube.setXPlusFaceProperty({
+                text: 'X',
+            });
+            annotatedCube.setXMinusFaceProperty({
+                text: '-X',
+            });
+            annotatedCube.setYPlusFaceProperty({
+                text: 'Y',
+            });
+            annotatedCube.setYMinusFaceProperty({
+                text: '-Y',
+            });
+            annotatedCube.setZPlusFaceProperty({
+                text: 'Z',
+            });
+            annotatedCube.setZMinusFaceProperty({
+                text: '-Z',
+            });
+
+            // Create orientation marker widget
+            var orientationWidget = vtk.Interaction.Widgets.vtkOrientationMarkerWidget.newInstance({
+                actor: annotatedCube,
+                interactor: fullScreenRenderer.getRenderWindow().getInteractor()
+            });
+            orientationWidget.setEnabled(true);
+            orientationWidget.setViewportCorner(
+                vtk.Interaction.Widgets.vtkOrientationMarkerWidget.Corners.BOTTOM_RIGHT
+            );
+            orientationWidget.setViewportSize(0.15);
+            orientationWidget.setMinPixelSize(100);
+            orientationWidget.setMaxPixelSize(300);
+
+            renderer.resetCamera();
+
+            var renderWindow = fullScreenRenderer.getRenderWindow();
+            renderWindow.render();
+        });
+    </script>
 </body>
+
 </html>
