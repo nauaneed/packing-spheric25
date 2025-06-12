@@ -99,6 +99,8 @@
                 text: '-Z',
             });
 
+            var annotatedCube = vtk.Rendering.Core.vtkCubeAxesActor.newInstance();
+
             // Create orientation marker widget
             var orientationWidget = vtk.Interaction.Widgets.vtkOrientationMarkerWidget.newInstance({
                 actor: annotatedCube,
@@ -106,11 +108,22 @@
             });
             orientationWidget.setEnabled(true);
             orientationWidget.setViewportCorner(
-                vtk.Interaction.Widgets.vtkOrientationMarkerWidget.Corners.BOTTOM_RIGHT
+                vtk.Interaction.Widgets.vtkOrientationMarkerWidget.Corners.BOTTOM_LEFT
             );
             orientationWidget.setViewportSize(0.15);
             orientationWidget.setMinPixelSize(100);
             orientationWidget.setMaxPixelSize(300);
+
+            // Create a color legend / scalar bar
+            var scalarBarActor = vtk.Rendering.Core.vtkScalarBarActor.newInstance();
+
+            // Connect the scalar bar to the same lookup table used by the mapper
+            scalarBarActor.setScalarsToColors(glyphMapper.getLookupTable());
+            scalarBarActor.setAxisLabel('Z Coordinate');
+
+
+            // Add the scalar bar to the renderer
+            renderer.addActor(scalarBarActor);
 
             renderer.resetCamera();
 
