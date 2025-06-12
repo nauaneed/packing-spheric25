@@ -367,3 +367,14 @@ section.has-light-background, section.has-light-background h1, section.has-light
     background-color: var(--r-background-color);
   }
 }
+
+
+.fragment.bold {
+  filter: opacity(60%);
+}
+
+.fragment.bold.current-fragment {
+  filter: opacity(100%);
+  filter: blur(0px);
+  filter: drop-shadow(0px 0px 10px lightblue);
+}

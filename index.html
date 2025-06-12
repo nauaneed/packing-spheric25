@@ -1,63 +1,288 @@
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/best.css">
+	<title>reveal.js</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section> <!-- First Slide -->
-					<div style="text-align: center;">
-						<h1> Rapid Variable Resolution </br> Particle Initialization with SPH </h1> 
-						<h2> Prabhu Ramachandran </h2>
-						</br>  </br>  </br>  </br> 
-						
-						Navaneet Villodi and Prabhu Ramachandran </br> 
-						Department of Aerospace Engineering </br> 
-						IITB
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/best.css">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section> <!-- Slide 1 -->
+				<div style="text-align: center;">
+					<h1> Rapid Variable Resolution </br> Particle Initialization with SPH </h1>
+					</br> </br> </br> </br> </br> </br>
+
+					Navaneet Villodi and Prabhu Ramachandran* </br>
+					Department of Aerospace Engineering </br>
+					Indian Institute of Technology Bombay, Mumbai, India</br>
+				</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 2 -->
+				<h3> Need for Particle Packing </h3>
+				<div style="display: flex;">
+					<div style="flex: 1; padding: 0px;">
+						</br> </br>
+						<ul style="line-height: 1.6;">
+							<li>Ghost particles for boundary treatment</li></br>
+							<li>Setup for flow startup problems, </br>
+								e.g., Flow Past Cylinder</li></br>
+							<li>Capture intricacies of the body</li></br>
+						</ul>
 					</div>
-				</section>
-				<section data-auto-animate> 
-					<h3> <code>Apolo try</code> </h3>
-					<p><em>hehe</em></p> 
-					<h3>3D Body: Yo</h3>
-					<div style="display: flex;text-align: center; ">
-						<div style="flex: 1; padding: 10px;">
-							<iframe src="./assets/apollo.html" width="700" height="700" frameborder="20" title="content"></iframe>
+					<div style="flex: 1.2; padding: 0px;">
+						<div style="display: flex; justify-content: center; align-items: center;">
+							<img src="assets/circle_nopack.png" alt="Circle No Pack"
+								style="width: 50%; height: auto; margin-right: 10px;">
+							<img src="assets/circle_pack.png" alt="Circle Pack" style="width: 50%; height: auto;">
 						</div>
 					</div>
-				</section>
-			</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Features </h3>
+				<ol style="line-height: 2.5;">
+					<li>Simultaneous initialization of fluid and solid</li>
+					<li>Adaptive resolution </li>
+					<li>Avoids complex procedures</li>
+					<li>Efficiency and speed</li>
+					<li>Common SPH building blocks</li>
+				</ol>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Setup </h3>
+				<div style="text-align: center;">
+					<img src="assets/particle-sets.png" alt="Circle Pack" style="width: 35%; height: auto;">
+				</div>
+			</section>
+
+			<section data-auto-animate> <!-- Slide 2 -->
+				<h3> Algorithmic Components</h3>
+				</br>
+				<div style="display: flex;">
+					<div style="flex: 0.5; padding: 0px; margin-left: 60px;">
+						<ol style="line-height: 2.2;">
+							<li class="halo">Restoring Force</li>
+							<li class="op60">Particle Shifting</li>
+							<li class="op60">Volume Adaptivity</li>
+							<li class="op60">Mass Dissipation</li>
+							<li class="op60">Interface Handling</li>
+						</ol>
+					</div>
+					<div style="flex: 0.6; padding: 0px;">
+						\[ \frac{\mathrm{d}\boldsymbol{u}_i}{\mathrm{d}{t}} = -\frac{1}{\rho_i}\sum_{j} \left(p_i +
+						p_j\right) \nabla W_{ij} \frac{m_j}{\rho_j} \]
+						\[ p_i = p_o \left(\frac{\rho_i}{\rho_o}\right)^{\gamma} \]
+						\[\rho_i = \sum_{j} m_j W_{ij}\]
+					</div>
+			</section>
+
+			<section data-auto-animate> <!-- Slide 2 -->
+				<h3> Algorithmic Components</h3>
+				</br>
+				<div style="display: flex;">
+					<div style="flex: 0.5; padding: 0px; margin-left: 60px;">
+						<ol style="line-height: 2.2;">
+							<li class="op60">Restoring Force</li>
+							<li class="halo">Particle Shifting</li>
+							<li class="op60">Volume Adaptivity</li>
+							<li class="op60">Mass Dissipation</li>
+							<li class="op60">Interface Handling</li>
+						</ol>
+					</div>
+					<div style="flex: 0.6; padding: 0px;">
+						\[ \delta \mathbf{r}_i = \begin{cases}
+						-0.5 h^2 \widehat{\nabla} C_i & \text{if } 0.5 h^2 \left|\widehat{\nabla} C_i\right|_2 < 0.2 h
+							\\ -0.2 h \frac{\widehat{\nabla} C_i}{\left|\widehat{\nabla} C_i\right|_2} &
+							\text{otherwise} \end{cases} \] \[ C_i=\sum_{j}\left[1 + 0.2 \left(\frac{W_{ij}}{W(\Delta
+							x_i)}\right)^4\right] \frac{m_j}{\color{red}{\rho_0}} \nabla W_{ij}. \] </div>
+			</section>
+			<section data-auto-animate> <!-- Slide 2 -->
+				<h3> Algorithmic Components</h3>
+				</br>
+				<div style="display: flex;">
+					<div style="flex: 0.5; padding: 0px; margin-left: 60px;">
+						<ol style="line-height: 2.2;">
+							<li class="op60">Restoring Force</li>
+							<li class="op60">Particle Shifting</li>
+							<li class="halo">Volume Adaptivity</li>
+							<li class="op60">Mass Dissipation</li>
+							<li class="op60">Interface Handling</li>
+						</ol>
+					</div>
+					<div style="flex: 0.6; padding: 0px;">
+						<img src="assets/split_merge.png" alt="Circle Pack"
+							style="width: 80%; height: auto; filter: invert(1);">
+					</div>
+			</section>
+
+			<section data-auto-animate> <!-- Slide 2 -->
+				<h3> Algorithmic Components</h3>
+				<div style="display: flex;">
+					<div style="flex: 0.5; padding: 0px; margin-left: 60px;">
+						</br>
+						<ol style="line-height: 2.2;">
+							<li class="op60">Restoring Force</li>
+							<li class="op60">Particle Shifting</li>
+							<li class="op60">Volume Adaptivity</li>
+							<li class="halo">Mass Dissipation</li>
+							<li class="op60">Interface Handling</li>
+						</ol>
+					</div>
+					<div style="flex: 0.6; padding: 0px;">
+						\[ \frac{\mathrm{d}\boldsymbol{m}_i}{\mathrm{d}{t}} = \sum_{j \in \mathcal{N}} \frac{m_j +
+						m_i}{\rho_j + \rho_i} \psi_{ij} v_{ij}^{sig,m} m_{ij} \hat{\mathbf{r}}_{ij} \cdot \nabla_i
+						W_{ij} \]
+						\[ v_{ij}^{sig,m} =
+						\begin{cases}
+						\sqrt{\frac{\left|p_{ij}\right|_2}{\rho_i + \rho_j}} & \text{if } \hat{\mathbf{r}}_{ij} \cdot
+						\mathbf{v}_{ij} < 0 \\ 0 & \text{otherwise} \end{cases} \] \[
+							\psi_{ij}=\frac{\left(\mathbf{v}_{ij} \cdot \hat{\mathbf{r}}_{ij}\right)^2}{\mathbf{v}_{ij}
+							\cdot \mathbf{v}_{ij} + \left(\epsilon_\psi v_{ij}^{sig,m}\right)^2 + \left(0.0005 (c_i +
+							c_j)\right)^2} \] </div>
+			</section>
+			<section data-auto-animate> <!-- Slide 2 -->
+				<h3> Algorithmic Components</h3>
+				<div style="display: flex;">
+					<div style="flex: 0.5; padding: 0px; margin-left: 60px;">
+						</br> </br>
+						<ol style="line-height: 2.2;">
+							<li class="op60">Restoring Force</li>
+							<li class="op60">Particle Shifting</li>
+							<li class="op60">Volume Adaptivity</li>
+							<li class="op60">Mass Dissipation</li>
+							<li class="halo">Interface Handling</li>
+						</ol>
+					</div>
+					<div style="flex: 0.6; padding: 0px;">
+						\[ \delta \boldsymbol{r}_{d,i} = \frac{ \sum_j \hat{\boldsymbol{n}}_j \max{\left(\Delta s_d -
+						\left|\boldsymbol{r}_{ij} \cdot \hat{\boldsymbol{n}}_j \right|, 0\right)}
+						\frac{\boldsymbol{r}_{ij} \cdot \hat{\boldsymbol{n}}_j}{\left|\boldsymbol{r}_{ij} \cdot
+						\hat{\boldsymbol{n}}_j\right|} W_{i}}{\sum_j W_{i}}\]
+						<div style="text-align: center;">
+							<img src="assets/no_mans_land.svg" alt="Circle Pack"
+								style="width: 50%; height: auto; filter: invert(1);">
+						</div>
+					</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Results: Circle </h3>
+				<div data-id="box"><em> 2D, Constant Resolution </em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<figure>
+							<figcaption>Density</figcaption>
+							<img src="assets/circ_rho.png" alt="fig: density"
+								style="width: 80%; height: auto; filter: invert(1);">
+						</figure>
+					</div>
+					<div style="flex: 1; padding: 10px;">
+						<figure>
+							<figcaption>Kernel Gradient Sum</figcaption>
+							<img src="assets/circ_kgs.png" alt="fig: kgs"
+								style="width: 80%; height: auto; filter: invert(1);">
+						</figure>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Results: Circle </h3>
+				<div data-id="box"><em> 2D, Constant Resolution </em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<figure>
+							<figcaption>Global Particle Disorder Convergence</figcaption>
+							<img src="assets/circ_disorder.png" alt="fig: kgs"
+								style="width: 50%; height: auto; filter: invert(1);">
+						</figure>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Results: Starfish </h3>
+				<div data-id="box"><em> 2D, Constant Resolution </em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<figure>
+							<figcaption data-id="figc">Density</figcaption>
+							<img src="assets/star_rho.png" alt="fig: kgs"
+								style="width: 50%; height: auto; filter: invert(1);">
+						</figure>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Results: Fire Emoji </h3>
+				<div ><em> 2D, Variable Resolution </em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<figure>
+							<figcaption data-id="figc">Density</figcaption>
+							<img src="assets/fire_rho.png" alt="fig: kgs"
+								style="width: 45%; height: auto; filter: invert(1);">
+						</figure>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Results: NACA 0012 Aerofoil</h3>
+				<div ><em> 2D, Variable Resolution </em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<figure>
+							<figcaption>Density</figcaption>
+							<img src="assets/airf_rho.png" alt="fig: kgs"
+								style="width: 90%; height: auto; filter: invert(1);">
+						</figure>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate> <!-- Slide 3 -->
+				<h3> Results: Circle </h3>
+				<em>2D Constant Resolution</em>
+				<h3>3D Body: Yo</h3>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<iframe src="./assets/apollo.html" width="700" height="700" frameborder="20"
+							title="content"></iframe>
+					</div>
+				</div>
+			</section>
 		</div>
+	</div>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script src="plugin/math/math.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
-				width: 1920,
-  				height: 1080,
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, RevealHighlight ]
-			});
 
-		</script>
-	</body>
+
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script src="plugin/math/math.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+			width: 1920,
+			height: 1080,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealMath, RevealHighlight]
+		});
+
+	</script>
+</body>
+
 </html>
