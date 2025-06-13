@@ -13,7 +13,6 @@
 	<link rel="stylesheet" href="dist/theme/white-best.css">
 
 
-
 	<!-- Theme used for syntax highlighted code -->
 	<link rel="stylesheet" href="plugin/highlight/monokai.css">
 </head>
@@ -31,8 +30,8 @@
 					Indian Institute of Technology Bombay, Mumbai, India</br>
 				</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 2 -->
-				<h3> Need for Particle Packing </h3>
+			<section> <!-- Slide 2 -->
+				<h2> Need for Particle Packing </h2>
 				<div style="display: flex;">
 					<div style="flex: 1; padding: 0px;">
 						</br> </br>
@@ -45,43 +44,58 @@
 					</div>
 					<div style="flex: 1.2; padding: 0px;">
 						<div style="display: flex; justify-content: center; align-items: center;">
-							<img src="assets/circle_nopack.png" alt="Circle No Pack"
-								style="width: 50%; height: auto; margin-right: 10px;">
-							<img src="assets/circle_pack.png" alt="Circle Pack" style="width: 50%; height: auto;">
+							<div class="image-fade-container" style="width: 50%;">
+								<img src="assets/circle_nopack.png" alt="Background" class="bg-img">
+								<img src="assets/nocircle_nopack.png" alt="Foreground" class="fade-img">
+							</div>
+							<div class="image-fade-container" style="width: 50%;">
+								<img src="assets/circle_pack.png" alt="Background" class="bg-img">
+								<img src="assets/nocircle_pack.png" alt="Foreground" class="fade-img">
+							</div>
 						</div>
 					</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Features </h3>
-				<ol style="line-height: 2.5;">
-					<li>Simultaneous initialization of fluid and solid</li>
-					<li>Adaptive resolution </li>
-					<li>Avoids complex procedures</li>
-					<li>Efficiency and speed</li>
-					<li>Common SPH building blocks</li>
-				</ol>
+			<section> <!-- Slide 3 -->
+				<h2> Features </h2>
+				</br>
+				<div style="display: flex">
+					<div style="flex: 0.4; padding-top: 35px;">
+						<ol style="line-height: 1.2;">
+							<li>Simultaneous initialization of fluid and solid
+								with boundary in between.</li></br>
+							<li>Adaptive resolution </li></br>
+							<li>Avoids complex procedures</li></br>
+							<li>Efficiency and speed</li></br>
+							<li>Common SPH building blocks</li>
+						</ol>
+					</div>
+					<div style="flex: 0.6; align-items: center; justify-content: center;">
+							<img src="assets/interface_fluid_ghost.svg" alt="Circle Pack"
+								style="width: 50%; height: auto; align-self: center; margin-left: 24%;">
+					</div>
+				</div>
 			</section>
 			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Setup </h3>
+				<h2> Setup </h2>
 				<div style="text-align: center;">
 					<img src="assets/particle-sets.png" alt="Circle Pack" style="width: 35%; height: auto;">
 				</div>
 			</section>
 
 			<section data-auto-animate> <!-- Slide 2 -->
-				<h3> Algorithmic Components</h3>
+				<h2> Algorithmic Components</h2>
 				</br>
-				<div style="display: flex; height: 700px">
+				<div style="display: flex">
 					<div style="flex: 0.5; padding: 0px">
 						<ol style="line-height: 2.2;">
 							<li class="halo">Restoring Force</li>
-							<li class="op60">Particle Shifting</li>
-							<li class="op60">Volume Adaptivity</li>
-							<li class="op60">Mass Dissipation</li>
+							<li class="op60">Particle Shifting<sup>1,2</sup></li>
+							<li class="op60">Volume Adaptivity<sup>3,4</sup></li>
+							<li class="op60">Mass Dissipation<sup>5</sup></li>
 							<li class="op60">Interface Handling</li>
 						</ol>
 					</div>
-					<div style="flex: 0.6; padding: 0px;">
+					<div style="flex: 0.6; padding: 0px">
 						\[ \frac{\mathrm{d}\boldsymbol{u}_i}{\mathrm{d}{t}} = -\frac{1}{\rho_i}\sum_{j} \left(p_i +
 						p_j\right) \nabla W_{ij} \frac{m_j}{\rho_j} \]
 						\[ p_i = p_o \left(\frac{\rho_i}{\rho_o}\right)^{\gamma} \]
@@ -90,15 +104,15 @@
 			</section>
 
 			<section data-auto-animate> <!-- Slide 2 -->
-				<h3> Algorithmic Components</h3>
+				<h2> Algorithmic Components</h2>
 				</br>
-				<div style="display: flex; height: 700px">
+				<div style="display: flex">
 					<div style="flex: 0.5; padding: 0px">
 						<ol style="line-height: 2.2;">
 							<li class="op60">Restoring Force</li>
-							<li class="halo">Particle Shifting</li>
-							<li class="op60">Volume Adaptivity</li>
-							<li class="op60">Mass Dissipation</li>
+							<li class="halo">Particle Shifting<sup>1,2</sup></li>
+							<li class="op60">Volume Adaptivity<sup>3,4</sup></li>
+							<li class="op60">Mass Dissipation<sup>5</sup></li>
 							<li class="op60">Interface Handling</li>
 						</ol>
 					</div>
@@ -108,40 +122,64 @@
 							\\ -0.2 h \frac{\widehat{\nabla} C_i}{\left|\widehat{\nabla} C_i\right|_2} &
 							\text{otherwise} \end{cases} \] \[ C_i=\sum_{j}\left[1 + 0.2 \left(\frac{W_{ij}}{W(\Delta
 							x_i)}\right)^4\right] \frac{m_j}{\color{red}{\rho_0}} \nabla W_{ij}. \] </div>
+					</div>
+					<hr />
+					<div style="text-align: left; font-size: 0.7em">
+						<sup> 1 </sup> Lind SJ, Xu R, Stansby PK, Rogers BD. Incompressible smoothed particle
+						hydrodynamics for free-surface flows: A generalised diffusion-based algorithm for stability and
+						validations for impulsive flows and propagating waves. Journal of Computational Physics.
+						2012;231(4):1499-1523. doi:10.1016/j.jcp.2011.10.027
+						</br>
+						<sup> 2 </sup> Muta A, Ramachandran P. Efficient and accurate adaptive resolution for
+						weakly-compressible SPH. Computer Methods in Applied Mechanics and Engineering. 2022;395:115019.
+						doi:10.1016/j.cma.2022.115019</br>
+					</div>
 			</section>
 			<section data-auto-animate> <!-- Slide 2 -->
-				<h3> Algorithmic Components</h3>
+				<h2> Algorithmic Components</h2>
 				</br>
-				<div style="display: flex; height: 700px">
+				<div style="display: flex">
 					<div style="flex: 0.5; padding: 0px;">
 						<ol style="line-height: 2.2;">
 							<li class="op60">Restoring Force</li>
-							<li class="op60">Particle Shifting</li>
-							<li class="halo">Volume Adaptivity</li>
-							<li class="op60">Mass Dissipation</li>
+							<li class="op60">Particle Shifting<sup>1,2</sup></li>
+							<li class="halo">Volume Adaptivity<sup>3,4</sup></li>
+							<li class="op60">Mass Dissipation<sup>5</sup></li>
 							<li class="op60">Interface Handling</li>
 						</ol>
 					</div>
 					<div style="flex: 0.6; padding: 0px;">
-						<img src="assets/split_merge.png" alt="Circle Pack"
-							style="width: 80%; height: auto;">
+						<img src="assets/split_merge.png" alt="Circle Pack" style="width: 80%; height: auto;">
 					</div>
+				</div>
+				<hr />
+				<div style="text-align: left; font-size: 30px; min-height:100px; display: block;">
+					<sup> 3 </sup> Sun PN, Le Touzé D, Oger G, Zhang AM. An accurate SPH Volume Adaptive Scheme for
+					modeling strongly-compressible multiphase flows. Part 1: Numerical scheme and validations with basic
+					1D and 2D benchmarks. Journal of Computational Physics. 2021;426:109937.
+					doi:10.1016/j.jcp.2020.109937
+					</br>
+					<sup> 4 </sup> Haftu A, Muta A, Ramachandran P. Parallel adaptive weakly-compressible SPH for
+					complex moving geometries. Computer Physics Communications. 2022;277:108377.
+					doi:10.1016/j.cpc.2022.108377
+					</br>
+				</div>
 			</section>
 
 			<section data-auto-animate> <!-- Slide 2 -->
-				<h3> Algorithmic Components</h3>
+				<h2> Algorithmic Components</h2>
 				<div style="display: flex;">
 					<div style="flex: 0.5; padding: 0px">
 						</br>
 						<ol style="line-height: 2.2;">
 							<li class="op60">Restoring Force</li>
-							<li class="op60">Particle Shifting</li>
-							<li class="op60">Volume Adaptivity</li>
-							<li class="halo">Mass Dissipation</li>
+							<li class="op60">Particle Shifting<sup>1,2</sup></li>
+							<li class="op60">Volume Adaptivity<sup>3,4</sup></li>
+							<li class="halo">Mass Dissipation<sup>5</sup></li>
 							<li class="op60">Interface Handling</li>
 						</ol>
 					</div>
-					<div style="flex: 0.6; padding: 0px; height: 750px;">
+					<div style="flex: 0.6; padding: 0px">
 						\[ \frac{\mathrm{d}\boldsymbol{m}_i}{\mathrm{d}{t}} = \sum_{j \in \mathcal{N}} \frac{m_j +
 						m_i}{\rho_j + \rho_i} \psi_{ij} v_{ij}^{sig,m} m_{ij} \hat{\mathbf{r}}_{ij} \cdot \nabla_i
 						W_{ij} \]
@@ -152,17 +190,24 @@
 							\psi_{ij}=\frac{\left(\mathbf{v}_{ij} \cdot \hat{\mathbf{r}}_{ij}\right)^2}{\mathbf{v}_{ij}
 							\cdot \mathbf{v}_{ij} + \left(\epsilon_\psi v_{ij}^{sig,m}\right)^2 + \left(0.0005 (c_i +
 							c_j)\right)^2} \] </div>
+					</div>
+					<hr />
+					<div style="text-align: left; font-size: 30px">
+						<sup> 5 </sup> Prasanna Kumar SS, Patnaik BSV. A
+						multimass correction for multicomponent fluid flow simulation using smoothed particle
+						hydrodynamics. Int J Numer Methods Eng. 2018;113(13):1929-1949. doi:10.1002/nme.5727
+					</div>
 			</section>
 			<section data-auto-animate> <!-- Slide 2 -->
-				<h3> Algorithmic Components</h3>
-				<div style="display: flex;; height: 700px">
+				<h2> Algorithmic Components</h2>
+				<div style="display: flex;">
 					<div style="flex: 0.5; padding: 0px">
 						</br> </br>
 						<ol style="line-height: 2.2;">
 							<li class="op60">Restoring Force</li>
-							<li class="op60">Particle Shifting</li>
-							<li class="op60">Volume Adaptivity</li>
-							<li class="op60">Mass Dissipation</li>
+							<li class="op60">Particle Shifting<sup>1,2</sup></li>
+							<li class="op60">Volume Adaptivity<sup>3,4</sup></li>
+							<li class="op60">Mass Dissipation<sup>5</sup></li>
 							<li class="halo">Interface Handling</li>
 						</ol>
 					</div>
@@ -172,85 +217,82 @@
 						\frac{\boldsymbol{r}_{ij} \cdot \hat{\boldsymbol{n}}_j}{\left|\boldsymbol{r}_{ij} \cdot
 						\hat{\boldsymbol{n}}_j\right|} W_{i}}{\sum_j W_{i}}\]
 						<div style="text-align: center;">
-							<img src="assets/no_mans_land.svg" alt="Circle Pack"
-								style="width: 50%; height: auto;">
+							<img src="assets/no_mans_land.svg" alt="Circle Pack" style="width: 50%; height: auto;">
 						</div>
 					</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: Circle </h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: Circle </h2>
 				<div data-id="box"><em> 2D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption>Density</figcaption>
-							<img src="assets/circ_rho.png" alt="fig: density"
-								style="width: 80%; height: auto;">
+							<img src="assets/circ_rho.png" alt="fig: density" style="width: 80%; height: auto;">
 						</figure>
 					</div>
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption>Kernel Gradient Sum</figcaption>
-							<img src="assets/circ_kgs.png" alt="fig: kgs"
-								style="width: 80%; height: auto">
+							<img src="assets/circ_kgs.png" alt="fig: kgs" style="width: 80%; height: auto">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: Circle </h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: Circle </h2>
 				<div data-id="box"><em> 2D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
-							<figcaption>Global Particle Disorder Convergence</figcaption>
-							<img src="assets/circ_disorder.png" alt="fig: kgs"
-								style="width: 50%; height: auto; ">
+							<figcaption style="font-size: smaller">Global Particle Disorder<sup>1</sup> Convergence</figcaption>
+							<img src="assets/circ_disorder.png" alt="fig: kgs" style="width: 48%; height: auto; ">
 						</figure>
 					</div>
 				</div>
+					<hr />
+					<div style="text-align: left; font-size: smaller">
+						<sup> 1 </sup> 1. Antuono M, Bouscasse B, Colagrossi A, Marrone S. A measure of spatial disorder in particle methods. Computer Physics Communications. 2014;185(10):2609-2621. doi:10.1016/j.cpc.2014.06.008
+					</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: Starfish </h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: Starfish </h2>
 				<div data-id="box"><em> 2D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption data-id="figc">Density</figcaption>
-							<img src="assets/star_rho.png" alt="fig: kgs"
-								style="width: 50%; height: auto; ">
+							<img src="assets/star_rho.png" alt="fig: kgs" style="width: 50%; height: auto; ">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: Fire Emoji </h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: Fire Emoji </h2>
 				<div><em> 2D, Variable Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption data-id="figc">Density</figcaption>
-							<img src="assets/fire_rho.png" alt="fig: kgs"
-								style="width: 45%; height: auto; ">
+							<img src="assets/fire_rho.png" alt="fig: kgs" style="width: 45%; height: auto; ">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: NACA 0012 Aerofoil</h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: NACA 0012 Aerofoil</h2>
 				<div><em> 2D, Variable Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption>Density</figcaption>
-							<img src="assets/airf_rho.png" alt="fig: kgs"
-								style="width: 90%; height: auto; ">
+							<img src="assets/airf_rho.png" alt="fig: kgs" style="width: 90%; height: auto; ">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: Sphere</h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: Sphere</h2>
 				<div data-id="box"><em> 3D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
@@ -265,8 +307,8 @@
 					</div>
 				</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
-				<h3> Results: Stanford Bunny </h3>
+			<section> <!-- Slide 3 -->
+				<h2> Results: Stanford Bunny </h2>
 				<div data-id="box"><em>3D, Constant Resolution</em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
