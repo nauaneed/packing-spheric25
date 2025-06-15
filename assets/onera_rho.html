@@ -14,7 +14,7 @@
             thetaResolution: 6
         });
 
-        reader.setUrl('../assets/bunny.vtp').then(function () {
+        reader.setUrl('../assets/onera.vtp').then(function () {
             var polydata = reader.getOutputData();
             var points = polydata.getPoints();
             var pointData = points.getData();
@@ -40,11 +40,6 @@
                 ds[i] = (m[i] / rho[i]) ** (1 / 3);
             }
 
-            polydata.getPointData().addArray(vtk.Common.Core.vtkDataArray.newInstance({
-                name: 'colscalar',
-                values: rho,
-                numberOfComponents: 1
-            }));
 
             var scalevec = new Float32Array(numPoints * 3);
             for (var i = 0; i < numPoints; i++) {
@@ -62,7 +57,7 @@
             polydata.getPointData().setActiveVectors('scalevec');
 
             polydata.getPointData().setScalars(vtk.Common.Core.vtkDataArray.newInstance({
-                name: 'rho',
+                name: 'colorscalar',
                 values: rho,
                 numberOfComponents: 1
             }));
@@ -73,7 +68,7 @@
             glyphMapper.setSourceConnection(sphereSource.getOutputPort());
             glyphMapper.setScalarRange(polydata.getPointData().getScalars().getRange());
             glyphMapper.setScalarModeToUsePointFieldData();
-            glyphMapper.setColorByArrayName('colscalar');
+            glyphMapper.setColorByArrayName('colorscalar');
 
 
             // Use Z Vector magnitude for scaling
@@ -119,14 +114,14 @@
             orientationWidget.setViewportCorner(
                 vtk.Interaction.Widgets.vtkOrientationMarkerWidget.Corners.BOTTOM_LEFT
             );
-            orientationWidget.setViewportSize(0.10);
+            orientationWidget.setViewportSize(0.15);
             orientationWidget.setMinPixelSize(100);
             orientationWidget.setMaxPixelSize(300);
             // Set view to -Y direction
             var camera = renderer.getActiveCamera();
             camera.setPosition(0, -1, 0);  // Position on -Y axis
             camera.setFocalPoint(0, 0, 0); // Look at origin
-            camera.setViewUp(0, 0, 1);     // Set Z as up direction
+            camera.setViewUp(-1, 0, 0);     // Set Z as up direction
 
 
             // Create a color legend / scalar bar
@@ -148,7 +143,6 @@
                 fontSize: 12,
             });
             
-
 
             // Add the scalar bar to the renderer
             renderer.addActor(scalarBarActor);

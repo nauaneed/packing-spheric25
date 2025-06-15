@@ -20,7 +20,8 @@
 <body>
 	<div class="reveal">
 		<div class="slides">
-			<section> <!-- Slide 1 -->
+			<section data-background-image="assets/background1.svg">
+				<!-- Slide 1 -->
 				<div style="text-align: center;">
 					<h1> Rapid Variable Resolution </br> Particle Initialization </br> with SPH </h1>
 					</br> </br> </br> </br> </br> </br>
@@ -30,7 +31,8 @@
 					Indian Institute of Technology Bombay, Mumbai, India</br>
 				</div>
 			</section>
-			<section> <!-- Slide 2 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
 				<h2> Need for Particle Packing </h2>
 				<div style="display: flex;">
 					<div style="flex: 1; padding: 0px;">
@@ -45,47 +47,40 @@
 					<div style="flex: 1.2; padding: 0px;">
 						<div style="display: flex; justify-content: center; align-items: center;">
 							<div class="image-fade-container" style="width: 50%;">
-								<img src="assets/circle_nopack.png" alt="Background" class="bg-img">
-								<img src="assets/nocircle_nopack.png" alt="Foreground" class="fade-img">
+								<img src="assets/circle_nopack.png" alt="Circle without packing" class="bg-img">
+								<img src="assets/nocircle_nopack.png" alt="No circle without packing" class="fade-img">
 							</div>
 							<div class="image-fade-container" style="width: 50%;">
-								<img src="assets/circle_pack.png" alt="Background" class="bg-img">
-								<img src="assets/nocircle_pack.png" alt="Foreground" class="fade-img">
+								<img src="assets/circle_pack.png" alt="Circle with packing" class="bg-img">
+								<img src="assets/nocircle_pack.png" alt="No circle with packing" class="fade-img">
 							</div>
 						</div>
 					</div>
 			</section>
-			<section> <!-- Slide 3 -->
-				<h2> Features </h2>
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Requirement </h2>
 				</br>
-				<div style="display: flex">
-					<div style="flex: 0.4; padding-top: 35px;">
-						<ol style="line-height: 1.2;">
-							<li>Simultaneous initialization of fluid and solid
-								with boundary in between.</li></br>
-							<li>Adaptive resolution </li></br>
-							<li>Avoids complex procedures</li></br>
-							<li>Efficiency and speed</li></br>
-							<li>Common SPH building blocks</li>
-						</ol>
-					</div>
-					<div style="flex: 0.6; align-items: center; justify-content: center;">
-							<img src="assets/interface_fluid_ghost.svg" alt="Circle Pack"
-								style="width: 50%; height: auto; align-self: center; margin-left: 24%;">
-					</div>
-				</div>
+				<figure style="text-align: center;">
+					<img src="assets/interface_fluid_ghost.svg" alt="Fluid ghost interface" style="width: 30%">
+					<figcaption>Simultaneous initialization of fluid and solid
+						with boundary in between.</figcaption>
+				</figure>
+
 			</section>
-			<section data-auto-animate> <!-- Slide 3 -->
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Setup </h2>
 				<div style="text-align: center;">
-					<img src="assets/particle-sets.png" alt="Circle Pack" style="width: 35%; height: auto;">
+					<img src="assets/particle-sets.png" alt="Particle sets" style="width: 35%; height: auto;">
 				</div>
 			</section>
 
-			<section data-auto-animate> <!-- Slide 2 -->
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
 				<h2> Algorithmic Components</h2>
 				</br>
-				<div style="display: flex">
+				<div style="display: flex;">
 					<div style="flex: 0.5; padding: 0px">
 						<ol style="line-height: 2.2;">
 							<li class="halo">Restoring Force</li>
@@ -100,10 +95,12 @@
 						p_j\right) \nabla W_{ij} \frac{m_j}{\rho_j} \]
 						\[ p_i = p_o \left(\frac{\rho_i}{\rho_o}\right)^{\gamma} \]
 						\[\rho_i = \sum_{j} m_j W_{ij}\]
+						\[h_i = h_{\text{fact}} \left(\frac{1}{\sum_j W_{i}}\right)^{1/d}\]
 					</div>
 			</section>
 
-			<section data-auto-animate> <!-- Slide 2 -->
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
 				<h2> Algorithmic Components</h2>
 				</br>
 				<div style="display: flex">
@@ -124,7 +121,7 @@
 							x_i)}\right)^4\right] \frac{m_j}{\color{red}{\rho_0}} \nabla W_{ij}. \] </div>
 					</div>
 					<hr />
-					<div style="text-align: left; font-size: 0.7em">
+					<div style="text-align: left; font-size: 0.7em; margin-bottom: -90px;">
 						<sup> 1 </sup> Lind SJ, Xu R, Stansby PK, Rogers BD. Incompressible smoothed particle
 						hydrodynamics for free-surface flows: A generalised diffusion-based algorithm for stability and
 						validations for impulsive flows and propagating waves. Journal of Computational Physics.
@@ -135,11 +132,12 @@
 						doi:10.1016/j.cma.2022.115019</br>
 					</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 2 -->
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
 				<h2> Algorithmic Components</h2>
 				</br>
 				<div style="display: flex">
-					<div style="flex: 0.5; padding: 0px;">
+					<div style="flex: 0.5; padding: 0px">
 						<ol style="line-height: 2.2;">
 							<li class="op60">Restoring Force</li>
 							<li class="op60">Particle Shifting<sup>1,2</sup></li>
@@ -149,11 +147,11 @@
 						</ol>
 					</div>
 					<div style="flex: 0.6; padding: 0px;">
-						<img src="assets/split_merge.png" alt="Circle Pack" style="width: 80%; height: auto;">
+						<img src="assets/split_merge.png" alt="Split merge" style="width: 80%; height: auto;">
 					</div>
 				</div>
 				<hr />
-				<div style="text-align: left; font-size: 30px; min-height:100px; display: block;">
+				<div style="text-align: left; font-size: 30px; margin-bottom: -90px;">
 					<sup> 3 </sup> Sun PN, Le Touzé D, Oger G, Zhang AM. An accurate SPH Volume Adaptive Scheme for
 					modeling strongly-compressible multiphase flows. Part 1: Numerical scheme and validations with basic
 					1D and 2D benchmarks. Journal of Computational Physics. 2021;426:109937.
@@ -166,7 +164,8 @@
 				</div>
 			</section>
 
-			<section data-auto-animate> <!-- Slide 2 -->
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
 				<h2> Algorithmic Components</h2>
 				<div style="display: flex;">
 					<div style="flex: 0.5; padding: 0px">
@@ -192,13 +191,14 @@
 							c_j)\right)^2} \] </div>
 					</div>
 					<hr />
-					<div style="text-align: left; font-size: 30px">
+					<div style="text-align: left; font-size: 30px; margin-bottom: -90px;">
 						<sup> 5 </sup> Prasanna Kumar SS, Patnaik BSV. A
 						multimass correction for multicomponent fluid flow simulation using smoothed particle
 						hydrodynamics. Int J Numer Methods Eng. 2018;113(13):1929-1949. doi:10.1002/nme.5727
 					</div>
 			</section>
-			<section data-auto-animate> <!-- Slide 2 -->
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
 				<h2> Algorithmic Components</h2>
 				<div style="display: flex;">
 					<div style="flex: 0.5; padding: 0px">
@@ -217,81 +217,91 @@
 						\frac{\boldsymbol{r}_{ij} \cdot \hat{\boldsymbol{n}}_j}{\left|\boldsymbol{r}_{ij} \cdot
 						\hat{\boldsymbol{n}}_j\right|} W_{i}}{\sum_j W_{i}}\]
 						<div style="text-align: center;">
-							<img src="assets/no_mans_land.svg" alt="Circle Pack" style="width: 50%; height: auto;">
+							<img src="assets/no_mans_land.svg" alt="No mans land" style="width: 50%; height: auto;">
 						</div>
 					</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: Circle </h2>
 				<div data-id="box"><em> 2D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption>Density</figcaption>
-							<img src="assets/circ_rho.png" alt="fig: density" style="width: 80%; height: auto;">
+							<img src="assets/circ_rho.png" alt="Circle density" style="width: 80%; height: auto;">
 						</figure>
 					</div>
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption>Kernel Gradient Sum</figcaption>
-							<img src="assets/circ_kgs.png" alt="fig: kgs" style="width: 80%; height: auto">
+							<img src="assets/circ_kgs.png" alt="Circle KGS" style="width: 80%; height: auto">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: Circle </h2>
 				<div data-id="box"><em> 2D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
-							<figcaption style="font-size: smaller">Global Particle Disorder<sup>1</sup> Convergence</figcaption>
-							<img src="assets/circ_disorder.png" alt="fig: kgs" style="width: 48%; height: auto; ">
+							<figcaption style="font-size: smaller">Global Particle Disorder<sup>1</sup>
+								Convergence</figcaption>
+							<img src="assets/circ_disorder.png" alt="Circle disorder convergence"
+								style="width: 40%; height: auto; ">
 						</figure>
 					</div>
 				</div>
-					<hr />
-					<div style="text-align: left; font-size: smaller">
-						<sup> 1 </sup> 1. Antuono M, Bouscasse B, Colagrossi A, Marrone S. A measure of spatial disorder in particle methods. Computer Physics Communications. 2014;185(10):2609-2621. doi:10.1016/j.cpc.2014.06.008
-					</div>
+				<hr />
+				<div style="text-align: left; font-size: smaller">
+					<sup> 1 </sup> 1. Antuono M, Bouscasse B, Colagrossi A, Marrone S. A measure of spatial disorder in
+					particle methods. Computer Physics Communications. 2014;185(10):2609-2621.
+					doi:10.1016/j.cpc.2014.06.008
+				</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: Starfish </h2>
 				<div data-id="box"><em> 2D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption data-id="figc">Density</figcaption>
-							<img src="assets/star_rho.png" alt="fig: kgs" style="width: 50%; height: auto; ">
+							<img src="assets/star_rho.png" alt="Starfish density" style="width: 50%; height: auto; ">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: Fire Emoji </h2>
 				<div><em> 2D, Variable Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption data-id="figc">Density</figcaption>
-							<img src="assets/fire_rho.png" alt="fig: kgs" style="width: 45%; height: auto; ">
+							<img src="assets/fire_rho.png" alt="Fire emoji density" style="width: 40%; height: auto; ">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: NACA 0012 Aerofoil</h2>
 				<div><em> 2D, Variable Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
 							<figcaption>Density</figcaption>
-							<img src="assets/airf_rho.png" alt="fig: kgs" style="width: 90%; height: auto; ">
+							<img src="assets/airf_rho.png" alt="Airfoil density" style="width: 90%; height: auto; ">
 						</figure>
 					</div>
 				</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: Sphere</h2>
 				<div data-id="box"><em> 3D, Constant Resolution </em></div>
 				<div style="display: flex;text-align: center; ">
@@ -301,21 +311,170 @@
 								<script>
 									document.querySelector('#sphere').playbackRate = 1.0;
 								</script>
-								<source src="assets/sphere.mp4" type="video/mp4">
+								<source src="assets/sphere.mp4" type="video/mp4" alt="Sphere video">
 							</video>
 						</div>
 					</div>
 				</div>
 			</section>
-			<section> <!-- Slide 3 -->
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
 				<h2> Results: Stanford Bunny </h2>
 				<div data-id="box"><em>3D, Constant Resolution</em></div>
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
-						<iframe src="./assets/bunny.html" width=60% height="800" frameborder="20"
-							title="content"></iframe>
+						<iframe src="./assets/bunny.html" width=60% height="800" frameborder="20" title="content"
+							alt="Stanford bunny"></iframe>
 					</div>
 				</div>
+			</section>
+			<section data-auto-animate data-auto-animate-id="utah" data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Results: Utah Teapot </h2>
+				<div data-id="box"><em>3D, Constant Resolution</em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<iframe src="./assets/teapot_rho.html" width=60% height="800" frameborder="20" title="content"
+							alt="Teapot bunny"></iframe>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate data-auto-animate-id="utah" data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Results: Utah Teapot </h2>
+				<div data-id="box"><em>3D, Constant Resolution</em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<iframe src="./assets/teapot_vol.html" width=60% height="800" frameborder="20" title="content"
+							alt="Teapot bunny"></iframe>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate data-auto-animate-id="onera" data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Results: Onera Wing </h2>
+				<div data-id="box"><em>3D, Constant Resolution</em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<iframe src="./assets/onera_rho.html" width=60% height="800" frameborder="20" title="content"
+							alt="Teapot bunny"></iframe>
+					</div>
+				</div>
+			</section>
+			<section data-auto-animate data-auto-animate-id="onera" data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Results: Onera Wing </h2>
+				<div data-id="box"><em>3D, Constant Resolution</em></div>
+				<div style="display: flex;text-align: center; ">
+					<div style="flex: 1; padding: 10px;">
+						<iframe src="./assets/onera_vol.html" width=60% height="800" frameborder="20" title="content"
+							alt="Teapot bunny"></iframe>
+					</div>
+				</div>
+			</section>
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Results: Speedups </h2>
+				<div style="display: flex;">
+					<table style="width:100%; border-collapse: collapse;">
+						<style>
+							table tr:nth-child(even) {
+								background-color: #d1d1d1;
+							}
+
+							table tr:nth-child(odd) {
+								background-color: #ffffff;
+							}
+
+							table th,
+							table td {
+								padding: 8px;
+								text-align: center;
+								border: 1px solid #ddd;
+							}
+
+							table th {
+								background-color: #2c2c2c;
+								color: white;
+							}
+						</style>
+						<thead>
+							<tr>
+								<th rowspan="2" style="vertical-align: middle;">Problem</th>
+								<th colspan="3" style="text-align: center;">Serial</th>
+								<th colspan="3" style="text-align: center;">OpenMP</th>
+							</tr>
+							<tr>
+								<th>NR</th>
+								<th>Present</th>
+								<th>Speedup</th>
+								<th>NR</th>
+								<th>Present</th>
+								<th>Speedup</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Circle</td>
+								<td>7.65</td>
+								<td>0.60</td>
+								<td>12.79</td>
+								<td>1.97</td>
+								<td>0.19</td>
+								<td>10.23</td>
+							</tr>
+							<tr>
+								<td>Starfish</td>
+								<td>18.24</td>
+								<td>2.56</td>
+								<td>7.11</td>
+								<td>4.47</td>
+								<td>0.66</td>
+								<td>6.74</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br />
+				<table style="width:50%">
+					<thead>
+						<tr>
+							<th rowspan="2" style="vertical-align: middle;">Problem</th>
+							<th colspan="3" style="text-align: center;">3D OpenMP</th>
+						<tr>
+							<th>NR</th>
+							<th>Present</th>
+							<th>Speedup</th>
+						</tr>
+					</thead>
+					<tbody>
+						<td>Stanford Bunny</td>
+						<td>32.48</td>
+						<td>909.42</td>
+						<td>27.99</td>
+						</tr>
+					</tbody>
+				</table>
+				<div style="text-align: left; font-size: 0.7em; padding-top: 160px;">
+					<hr />
+					NR : Negi P, Ramachandran P. Algorithms for uniform particle initialization in domains with complex
+					boundaries. Computer Physics Communications. 2021;265:108008. doi:10.1016/j.cpc.2021.108008
+				</div>
+			</section>
+			<section data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Summary </h2>
+				<br />
+				Presented a packing proceedure with the following desirable features:
+				</br>
+				</br>
+				<ol style="line-height: 1.2; margin-left: 100px; list-style-type: none; ">
+				<li>✅ Simultaneous initialization of fluid and solid</li></br>
+				<li>✅ Adaptive resolution </li></br>
+				<li>✅ Avoids complex procedures</li></br>
+				<li>✅ Efficient and fast</li></br>
+				<li>✅ Uses common SPH building blocks</li>
+				</ol>
 			</section>
 		</div>
 	</div>
