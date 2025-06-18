@@ -23,7 +23,7 @@
 			<section data-background-image="assets/background1.svg">
 				<!-- Slide 1 -->
 				<div style="text-align: center;">
-					<h1> Rapid Variable Resolution </br> Particle Initialization for </br>  Complex Geometries </h1>
+					<h1> Rapid Variable Resolution </br> Particle Initialization for </br> Complex Geometries </h1>
 					</br> </br> </br> </br> </br> </br>
 
 					Navaneet Villodi and Prabhu Ramachandran* </br>
@@ -94,7 +94,7 @@
 						\[ \frac{\mathrm{d}\boldsymbol{u}_i}{\mathrm{d}{t}} = -\frac{1}{\rho_i}\sum_{j} \left(p_i +
 						p_j\right) \nabla W_{ij} \frac{m_j}{\rho_j} \]
 						\[ p_i = p_o \left(\frac{\rho_i}{\rho_o}\right)^{\gamma} \]
-						\[\rho_i = \sum_{j} m_j W_{ij}\]
+						\[\rho_i = \sum_{j} m_j W_{i}\]
 						\[h_i = h_{\text{fact}} \left(\frac{1}{\sum_j W_{i}}\right)^{1/d}\]
 					</div>
 			</section>
@@ -117,8 +117,9 @@
 						\[ \delta \mathbf{r}_i = \begin{cases}
 						-0.5 h^2 \widehat{\nabla} C_i & \text{if } 0.5 h^2 \left|\widehat{\nabla} C_i\right|_2 < 0.2 h
 							\\ -0.2 h \frac{\widehat{\nabla} C_i}{\left|\widehat{\nabla} C_i\right|_2} &
-							\text{otherwise} \end{cases} \] \[ C_i=\sum_{j}\left[1 + 0.2 \left(\frac{W_{ij}}{W(\Delta
-							x_i)}\right)^4\right] \frac{m_j}{\color{red}{\rho_0}} \nabla W_{ij}. \] </div>
+							\text{otherwise} \end{cases} \] \[ \widehat{\nabla} C_i=\sum_{j}\left[1 + 0.2
+							\left(\frac{W_{ij}}{W(\Delta x_i)}\right)^4\right] \frac{m_j}{\color{red}{\rho_0}} \nabla
+							W_{ij}. \] </div>
 					</div>
 					<hr />
 					<div style="text-align: left; font-size: 0.7em; margin-bottom: -90px;">
@@ -278,13 +279,17 @@
 				<!-- Slide 3 -->
 				<h2> Results: Fire Emoji </h2>
 				<div><em> 2D, Variable Resolution </em></div>
-				<div style="display: flex;text-align: center; ">
-					<div style="flex: 1; padding: 10px;">
+				<div style="display: flex; align-items: center; text-align: center; ">
+					<div style="flex: 0.7; padding: 10px;">
 						<figure>
 							<figcaption data-id="figc">Density</figcaption>
-							<img src="assets/fire_rho.png" alt="Fire emoji density" style="width: 40%; height: auto; ">
+							<img src="assets/fire_rho.png" alt="Fire emoji density" style="width: 60%; height: auto; ">
 						</figure>
 					</div>
+					<div style="flex: 0.3; padding: 10px; margin-right: 100px;">
+						<span style="color: #FB0202;">★</span> Represents points where \(\Delta s_\text{min} = 0.25 \Delta s\) has been set. \(\Delta s\) varies from 0.25 to 1.0.
+					</div>
+
 				</div>
 			</section>
 			<section data-background-image="assets/background2.svg">
@@ -469,12 +474,12 @@
 				</br>
 				</br>
 				<ol style="line-height: 1.9; margin-left: 100px; list-style-type: none; ">
-				<li>✅ Simultaneous initialization of fluid and solid</li>
-				<li>✅ Adaptive resolution </li>
-				<li>✅ Avoids complex procedures</li>
-				<li>✅ Efficient and fast</li>
-				<li>✅ Uses common SPH building blocks</li>
-				<li>✅ Open source: gitlab.com/pypr/particle-packing (public soon)</li>
+					<li>✅ Simultaneous initialization of fluid and solid</li>
+					<li>✅ Adaptive resolution </li>
+					<li>✅ Avoids complex procedures</li>
+					<li>✅ Efficient and fast</li>
+					<li>✅ Uses common SPH building blocks</li>
+					<li>✅ Open source: gitlab.com/pypr/particle-packing (public soon)</li>
 				</ol>
 			</section>
 			<section data-background-image="assets/background2.svg">
@@ -482,17 +487,17 @@
 				<h2> Self Promotion </h2>
 				<br />
 				<ol style="line-height: 1.9; margin-left: 100px;  ">
-				<li><code>PySPH</code>: github.com/pypr/pysph</li>
-				<li><code>automan</code>: github.com/pypr/automan</li>
-				<li>Papers: gitlab.com/pypr/</li>
-				<br />
-				<br />
+					<li><code>PySPH</code>: github.com/pypr/pysph</li>
+					<li><code>automan</code>: github.com/pypr/automan</li>
+					<li>Papers: gitlab.com/pypr/</li>
+					<br />
+					<br />
 				</ol>
 				<b>Thank you for your attention!</b>
 			</section>
 		</div>
 	</div>
-</br>
+	</br>
 
 
 
