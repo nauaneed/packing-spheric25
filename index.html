@@ -39,8 +39,7 @@
 						</br> </br>
 						<ul style="line-height: 1.6;">
 							<li>Ghost particles for boundary treatment</li></br>
-							<li>Setup for flow startup problems, </br>
-								e.g., Flow Past Cylinder</li></br>
+							<li>Initialization of all particles</li></br>
 							<li>Capture intricacies of the body</li></br>
 						</ul>
 					</div>
@@ -59,7 +58,7 @@
 			</section>
 			<section data-background-image="assets/background2.svg">
 				<!-- Slide 3 -->
-				<h2> Requirement </h2>
+				<h2> Simultaneous Initialization </h2>
 				</br>
 				<figure style="text-align: center;">
 					<img src="assets/interface_fluid_ghost.svg" alt="Fluid ghost interface" style="width: 30%">
@@ -67,6 +66,27 @@
 						with boundary in between.</figcaption>
 				</figure>
 
+			</section>
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 3 -->
+				<h2> Issues with existing approaches </h2>
+				<br/>
+				<ol style="line-height: 1.9; margin-left: 100px; ">
+					<li>Simultaneous initialization of fluid and solid<sup> 1, 2 </sup></li>
+					<li>Adaptive resolution <sup> 3 </sup></li>
+					<li>Complex procedures</li>
+					<li>Fast <sup> 3 </sup></li>
+				</ol>
+				<div style="text-align: left; font-size: 0.7em; margin-top: 100px">
+					<hr />
+					<sup> 1 </sup> Negi P, Ramachandran P. "Algorithms for uniform particle initialization in domains
+					with complex
+					boundaries." CPC. 2021 <br />
+					<sup> 2 </sup>Zhao, Chenxi, et al. "Physics-driven complex relaxation for multi-body systems of SPH
+					method." CPC 313 (2025)<br />
+					<sup> 3 </sup>Jiang, Min, et al. "Blue noise sampling using an SPH-based method." ACM Transactions
+					on Graphics (TOG) 34.6 (2015)
+				</div>
 			</section>
 			<section data-auto-animate data-background-image="assets/background2.svg">
 				<!-- Slide 3 -->
@@ -222,6 +242,23 @@
 						</div>
 					</div>
 			</section>
+
+			<section data-auto-animate data-background-image="assets/background2.svg">
+				<!-- Slide 2 -->
+				<h2> Metrics</h2>
+				</br>
+				</br>
+				<ol style="line-height: 2.2; height: 500px;">
+					<li>Density (\(\rho\))</li>
+					<li>Kernel gradient sum (\(\nabla \Gamma\))</li>
+					<li>Spatial disorder measure(\(\Lambda\))<sup>1</sup></li>
+				</ol>
+				<hr />
+				<div style="text-align: left; font-size: smaller; ">
+					<sup> 1 </sup> Antuono M, Bouscasse B, Colagrossi A, Marrone S. A measure of spatial disorder in
+					particle methods. Computer Physics Communications. 2014;185(10).
+				</div>
+			</section>
 			<section data-background-image="assets/background2.svg">
 				<!-- Slide 3 -->
 				<h2> Results: Circle </h2>
@@ -248,18 +285,12 @@
 				<div style="display: flex;text-align: center; ">
 					<div style="flex: 1; padding: 10px;">
 						<figure>
-							<figcaption style="font-size: smaller">Global Particle Disorder<sup>1</sup>
+							<figcaption style="font-size: smaller">Global Particle Disorder
 								Convergence</figcaption>
 							<img src="assets/circ_disorder.png" alt="Circle disorder convergence"
-								style="width: 40%; height: auto; ">
+								style="width: 50%; height: auto; ">
 						</figure>
 					</div>
-				</div>
-				<hr />
-				<div style="text-align: left; font-size: smaller">
-					<sup> 1 </sup> 1. Antuono M, Bouscasse B, Colagrossi A, Marrone S. A measure of spatial disorder in
-					particle methods. Computer Physics Communications. 2014;185(10):2609-2621.
-					doi:10.1016/j.cpc.2014.06.008
 				</div>
 			</section>
 			<section data-background-image="assets/background2.svg">
@@ -287,7 +318,8 @@
 						</figure>
 					</div>
 					<div style="flex: 0.3; padding: 10px; margin-right: 100px;">
-						<span style="color: #FB0202;">★</span> Represents points where \(\Delta s_\text{min} = 0.25 \Delta s\) has been set. \(\Delta s\) varies from 0.25 to 1.0.
+						<span style="color: #FB0202;">★</span> Represents points where \(\Delta s_\text{min} = 0.25
+						\Delta s\) has been set. \(\Delta s\) varies from 0.25 to 1.0.
 					</div>
 
 				</div>
@@ -484,7 +516,7 @@
 			</section>
 			<section data-background-image="assets/background2.svg">
 				<!-- Slide 3 -->
-				<h2> Self Promotion </h2>
+				<h2> Useful Links </h2>
 				<br />
 				<ol style="line-height: 1.9; margin-left: 100px;  ">
 					<li><code>PySPH</code>: github.com/pypr/pysph</li>
